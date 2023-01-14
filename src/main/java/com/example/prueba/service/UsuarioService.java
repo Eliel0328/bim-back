@@ -38,4 +38,8 @@ public class UsuarioService implements ICRUDService<Usuario> {
     public Usuario update(Usuario usuario) {
         return iUsuarioRepository.save(usuario);
     }
+
+    public Optional<Usuario> findByUsuario(String username){
+        return iUsuarioRepository.findByUsuario(username);
+    }
 }

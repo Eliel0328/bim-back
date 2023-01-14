@@ -34,7 +34,7 @@ public class Usuario implements UserDetails {
 
     @NotNull(message = "Not Null")
     @NotBlank(message = "Usuario Obligatorio")
-    @Size(min = 8, max = 20, message = "Longitud valida (8-20)")
+    @Size(min = 3, max = 20, message = "Longitud valida (8-20)")
     @Column(name = "usuario", nullable = false, length = 20)
     private String usuario;
 
