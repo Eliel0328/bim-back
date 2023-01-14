@@ -65,7 +65,6 @@ public class AuthController {
     public ResponseEntity<Usuario> create(@Valid @RequestBody Usuario usuario) {
         Optional<Usuario> usuarioOpt1 = usuarioService.findByUsuario(usuario.getUsername());
         Optional<Usuario> usuarioOpt2 = usuarioService.findByCorreo(usuario.getCorreo());
-        System.out.println(usuarioOpt2);
 
         if (usuarioOpt1.isPresent() || usuarioOpt2.isPresent()) {
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);
@@ -79,7 +78,11 @@ public class AuthController {
         UsuarioDireccion uDireccion = new UsuarioDireccion("", "", 0, usuarioAux);
         uDireccionService.create(uDireccion);
         usuarioAux.setPassword(null);
-        return new ResponseEntity<>(usuarioAux, HttpStatus.CREATED);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.AUTHORIZATION, jwtUtil.generateToken(usuarioAux));
+
+        return new ResponseEntity<>(usuarioAux, headers, HttpStatus.CREATED);
     }
 
 }
