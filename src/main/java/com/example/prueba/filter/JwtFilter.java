@@ -18,8 +18,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.util.StringUtils;
 
+import com.example.prueba.model.Usuario;
 import com.example.prueba.repository.IUsuarioRepository;
 import com.example.prueba.util.JwtUtil;
+
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -43,10 +47,17 @@ public class JwtFilter extends OncePerRequestFilter {
         // Get token
         final String token = header.split(" ")[1].trim();
 
-        // Get user identity and set it on the spring security context
-        UserDetails userDetails = usuarioRepository
-                .findByUsuario(jwtUtil.getUsernameFromToken(token))
-                .orElse(null);
+        UserDetails userDetails = new Usuario();
+        try {
+            // Get user identity and set it on the spring security context
+            userDetails = usuarioRepository
+                    .findByUsuario(jwtUtil.getUsernameFromToken(token))
+                    .orElse(null);
+        } catch (ExpiredJwtException e) {
+            request.setAttribute("expired", e.getMessage());
+            chain.doFilter(request, response);
+            return;
+        }
 
         // Get jwt token and validate
         if (!jwtUtil.validateToken(token, userDetails)) {
@@ -54,7 +65,8 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                userDetails,
                 null, userDetails == null ? List.of() : userDetails.getAuthorities());
 
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
