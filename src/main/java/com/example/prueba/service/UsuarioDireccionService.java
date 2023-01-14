@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.prueba.model.Usuario;
 import com.example.prueba.model.UsuarioDireccion;
 import com.example.prueba.repository.IUsuarioDireccionRepository;
 
@@ -37,6 +38,10 @@ public class UsuarioDireccionService implements ICRUDService<UsuarioDireccion> {
     @Override
     public UsuarioDireccion update(UsuarioDireccion usuario) {
         return iUsuarioDireccionRepository.save(usuario);
+    }
+
+    public Optional<UsuarioDireccion> findByUsuario(Usuario usuario) {
+        return iUsuarioDireccionRepository.findByUsuario(usuario);
     }
 
 }
