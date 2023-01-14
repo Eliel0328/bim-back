@@ -23,7 +23,6 @@ import com.example.prueba.repository.IUsuarioRepository;
 import com.example.prueba.util.JwtUtil;
 
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {

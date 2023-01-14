@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -19,19 +17,14 @@ public class UsuarioDireccion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUsuarioDireccion;
 
-    @NotNull(message = "Not Null - Estado")
-    @NotBlank(message = "Estado Obligatorio")
-    @Size(min = 8, max = 150, message = "Longitud valida (8-150)")
-    @Column(name = "estado", nullable = false, length = 150)
+    @Size(max = 150, message = "Longitud valida (0-150)")
+    @Column(name = "estado", length = 150)
     private String estado;
 
-    @NotNull(message = "Not Null - Municipio")
-    @NotBlank(message = "Municipio Obligatorio")
-    @Size(min = 8, max = 150, message = "Longitud valida (8-150)")
-    @Column(name = "municipio", nullable = false, length = 150)
+    @Size(max = 150, message = "Longitud valida (0-150)")
+    @Column(name = "municipio", length = 150)
     private String municipio;
 
-    @NotNull(message = "Not Null - CP")
     @Column(name = "cp")
     private Integer cp;
 
@@ -42,11 +35,10 @@ public class UsuarioDireccion {
     public UsuarioDireccion() {
     }
 
-    public UsuarioDireccion(Integer idUsuarioDireccion,
-            @NotNull(message = "Not Null - Estado") @NotBlank(message = "Estado Obligatorio") @Size(min = 8, max = 150, message = "Longitud valida (8-150)") String estado,
-            @NotNull(message = "Not Null - Municipio") @NotBlank(message = "Municipio Obligatorio") @Size(min = 8, max = 150, message = "Longitud valida (8-150)") String municipio,
-            @NotNull(message = "Not Null - CP") Integer cp, Usuario usuario) {
-        this.idUsuarioDireccion = idUsuarioDireccion;
+    public UsuarioDireccion(
+            @Size(max = 150, message = "Longitud valida (0-150)") String estado,
+            @Size(max = 150, message = "Longitud valida (0-150)") String municipio,
+            Integer cp, Usuario usuario) {
         this.estado = estado;
         this.municipio = municipio;
         this.cp = cp;

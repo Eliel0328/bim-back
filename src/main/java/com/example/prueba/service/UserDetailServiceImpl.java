@@ -10,13 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.prueba.model.Usuario;
 import com.example.prueba.repository.IUsuarioRepository;
-import com.example.prueba.util.CustomPasswordEnconder;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
-
-    @Autowired
-    private CustomPasswordEnconder customPasswordEnconder;
 
     @Autowired
     private IUsuarioRepository usuarioRepository;
