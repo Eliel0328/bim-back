@@ -1,6 +1,5 @@
 package com.example.prueba.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +25,6 @@ public class UsuarioDireccionController {
 
     @Autowired
     private UsuarioService usuarioService;
-
-    @GetMapping
-    public ResponseEntity<List<UsuarioDireccion>> findAll() {
-        return ResponseEntity.ok(udservice.findAll());
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioDireccion> findById(@PathVariable("id") Integer id) {

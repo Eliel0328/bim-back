@@ -1,6 +1,5 @@
 package com.example.prueba.config;
 
-import javax.persistence.Basic;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;

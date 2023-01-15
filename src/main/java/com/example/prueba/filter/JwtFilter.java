@@ -1,7 +1,7 @@
 package com.example.prueba.filter;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Arrays;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -66,7 +66,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 userDetails,
-                null, userDetails == null ? List.of() : userDetails.getAuthorities());
+                null, userDetails == null ? Arrays.asList() : userDetails.getAuthorities());
 
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
